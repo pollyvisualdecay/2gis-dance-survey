@@ -1047,14 +1047,15 @@
             experience: document.querySelector('#experienceSelect .select-trigger') ? document.querySelector('#experienceSelect .select-trigger').textContent.trim() : ''
         };
 
-        // https://n8n.2gis.io/webhook-test/cb917088-358c-4b83-b074-97e09240a457
-        const webhookUrl = 'https://n8n.2gis.io/webhook-test/cb917088-358c-4b83-b074-97e09240a457'; 
+        // https://n8n.2gis.io/webhook/cb917088-358c-4b83-b074-97e09240a457
+        const webhookUrl = 'https://n8n.2gis.io/webhook/cb917088-358c-4b83-b074-97e09240a457'; 
 
         // Отправляем данные методом POST в формате JSON
         fetch(webhookUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify(data)
         })
