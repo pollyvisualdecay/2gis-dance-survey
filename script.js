@@ -1,5 +1,5 @@
 // Configuration - Укажите ваш n8n webhook URL
-const WEBHOOK_URL = 'YOUR_N8N_WEBHOOK_URL'; // Замените на реальный URL после настройки n8n
+const WEBHOOK_URL = 'https://n8n.2gis.io/webhook/cb917088-358c-4b83-b074-97e09240a457';
 
 // Form handling
 const form = document.getElementById('danceSurvey');
