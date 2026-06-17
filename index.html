@@ -344,6 +344,19 @@
 
         .group-hint { color: #94a3b8; text-transform: none; font-size: 11px; opacity: 1 !important; }
 
+        /* Сетка чекбоксов для дней и времени */
+        .checkbox-grid-two-columns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 4px;
+        }
+        @media (max-width: 600px) {
+            .checkbox-grid-two-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Инпуты */
         /* Обязательные поля - сиреневая граница */
         .form-group.required input,
@@ -895,18 +908,38 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="schedule">Удобное время</label>
-                    <div class="custom-select-wrapper">
-                        <div class="custom-select" id="scheduleSelect">
-                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
-                            <div class="select-options">
-                                <div class="option" data-value="morning">Утро (до 10:00)</div>
-                                <div class="option" data-value="lunch">Обед (с 12:00 до 15:00)</div>
-                                <div class="option" data-value="evening">Вечер (с 16:00 до 18:00)</div>
-                                <div class="option" data-value="late_evening">Поздний вечер (с 18:00 до 21:00)</div>
-                            </div>
-                        </div>
-                        <input type="hidden" name="schedule" id="scheduleInput">
+                    <label class="group-label">УДОБНЫЕ ДНИ И ВРЕМЯ ДЛЯ ТАНЦЕВ *</label>
+                    <div class="checkbox-grid-two-columns">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="schedule" value="mon_evening">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Понедельник (Вечер после 17:00)</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="schedule" value="tue_thu_morning">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Вторник / Четверг (Утро до 12:00)</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="schedule" value="tue_thu_afternoon">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Вторник / Четверг (День 14:00 - 16:00)</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="schedule" value="thu_early_evening">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Четверг (Ранний вечер 17:00)</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="schedule" value="wed_fri_morning">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">Среда / Пятница (Утро до 12:00)</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="schedule" value="any_time">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">🕐 Подстроюсь под любое свободное окно</span>
+                        </label>
                     </div>
                 </div>
 
@@ -1032,6 +1065,12 @@
             interested.push(cb.value);
         });
         
+        // Собираем массив выбранных чекбоксов (удобные дни и время)
+        const schedule = [];
+        document.querySelectorAll('input[name="schedule"]:checked').forEach(cb => {
+            schedule.push(cb.value);
+        });
+        
         // Формируем аккуратный объект для отправки
         const data = {
             name: document.getElementById('name') ? document.getElementById('name').value : '',
@@ -1043,7 +1082,7 @@
             price: document.querySelector('#priceSelect .select-trigger') ? document.querySelector('#priceSelect .select-trigger').textContent.trim() : '',
             duration: document.querySelector('#durationSelect .select-trigger') ? document.querySelector('#durationSelect .select-trigger').textContent.trim() : '',
             frequency: document.querySelector('#frequencySelect .select-trigger') ? document.querySelector('#frequencySelect .select-trigger').textContent.trim() : '',
-            schedule: document.querySelector('#scheduleSelect .select-trigger') ? document.querySelector('#scheduleSelect .select-trigger').textContent.trim() : '',
+            schedule: schedule.join(', '),
             experience: document.querySelector('#experienceSelect .select-trigger') ? document.querySelector('#experienceSelect .select-trigger').textContent.trim() : ''
         };
 
