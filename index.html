@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Танцы | 2ГИС ФИТ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Manrope:wght@300;400;500;600;700&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           ВСТРОЕННЫЙ CSS-СТИЛЬ (Заменяет styles.css)
+           ========================================================================== */
+        body {
+            background-color: #0f1115;
+            color: #ffffff;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 300;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        .header {
+            padding: 20px 0;
+            background-color: rgba(15, 17, 21, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1e222b;
+        }
+        .logo-img {
+            height: 40px;
+            display: block;
+        }
+
+        /* Главный баннер (Hero) */
+        .hero {
+            padding: 260px 0 160px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f1115);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .hero-video-element {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .hero-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 17, 21, 0.7);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+        }
+        .hero-title {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 16px;
+        }
+        .hero-title .highlight {
+            background: linear-gradient(135deg, #0073e6, #8b6ff2, #ed7bbb, #0073e6) !important;
+            background-size: 200% 200% !important;
+            animation: movingGradient 6s ease infinite !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            display: block;
+        }
+        .hero-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+            max-width: 500px;
+            margin: 0 auto 24px;
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 300;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: opacity 0.2s;
+            font-family: 'Manrope', sans-serif;
+            font-size: 14px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0073e6, #8b6ff2, #ed7bbb, #0073e6) !important;
+            background-size: 200% 200% !important;
+            animation: movingGradient 5s ease infinite !important;
+            color: #ffffff !important;
+            border: none;
+            box-shadow: 0 0 20px rgba(139, 111, 242, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 111, 242, 0.6);
+        }
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+        }
+        .section-header-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+        .header-column-left {
+            position: sticky;
+            top: 100px;
+        }
+        .section-title-big {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .header-column-right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .section-text-unbounded {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #ffffff;
+            line-height: 1.6;
+            margin: 0 0 16px;
+            opacity: 0.95;
+            text-align: left !important;
+            letter-spacing: 0.5px;
+        }
+        .section-text-inter {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #ffffff;
+            line-height: 1.6;
+            margin: 0 0 20px;
+            opacity: 0.8;
+            text-align: left !important;
+            letter-spacing: 0.5px;
+        }
+        .btn-arrow {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Анимация живого градиента */
+        @keyframes movingGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Заголовки секций */
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .title-accent { 
+            background: linear-gradient(135deg, #0073e6, #8b6ff2, #ed7bbb, #0073e6) !important;
+            background-size: 200% 200% !important;
+            animation: movingGradient 6s ease infinite !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            display: inline-block;
+        }
+        .text-accent-gradient {
+            background: linear-gradient(135deg, #0073e6, #8b6ff2, #ed7bbb) !important;
+            background-size: 200% 200% !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            display: inline-block;
+            font-weight: 400;
+            opacity: 1 !important;
+        }
+        .hero-title .highlight {
+            background: linear-gradient(135deg, #0073e6 0%, #ed7bbb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            width: 100%;
+        }
+        .direction-card {
+            background: #161920;
+            border: 1px solid #232834;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .direction-card:hover {
+            transform: translateY(-5px);
+            border-color: #8b6ff2;
+            box-shadow: 0 12px 24px rgba(139, 111, 242, 0.3);
+        }
+        .direction-card .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background-color: #000;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .card-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(139, 111, 242, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .direction-card:hover .video-play-btn {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+        .directions {
+            padding: 60px 0;
+        }
+        .card-content {
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex-grow: 1;
+        }
+        .card-title { font-family: 'Unbounded', sans-serif; font-size: 22px; letter-spacing: 0.04em; font-weight: 600; margin: 0; }
+        .card-desc { color: #94a3b8; font-size: 11px; line-height: 1.65; margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 300; }
+
+        /* ДВУХКОЛОНОЧНАЯ ДЕСКТОПНАЯ ФОРМА */
+        .survey {
+            padding: 80px 0;
+            background-color: #0b0c0e;
+        }
+        .survey-intro-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #ffffff;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+        .survey-form {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Две колонки */
+            gap: 20px 24px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        /* Растягиваем кнопку отправки на всю ширину формы */
+        .btn-submit {
+            grid-column: span 2;
+        }
+        .form-group label, .group-label span {
+            color: #ffffff !important;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Unbounded', sans-serif;
+            opacity: 1 !important;
+        }
+        .group-hint { color: #94a3b8; text-transform: none; font-size: 11px; opacity: 1 !important; }
+
+        .group-hint { color: #94a3b8; text-transform: none; font-size: 11px; opacity: 1 !important; }
+
+        /* Инпуты */
+        /* Обязательные поля - сиреневая граница */
+        .form-group.required input,
+        .form-group.required .select-trigger {
+            border: 1px solid rgba(139, 111, 242, 0.4) !important;
+            background: rgba(15, 17, 21, 0.7);
+        }
+        
+        .form-group.required input:focus {
+            border-color: #8b6ff2 !important;
+            box-shadow: 0 0 12px rgba(139, 111, 242, 0.3) !important;
+            outline: none;
+        }
+        
+        /* Необязательные поля - приглушенный стиль */
+        .form-group:not(.required) input,
+        .form-group:not(.required) .select-trigger {
+            border: 1px solid #222630 !important;
+            background: #0f1115;
+            opacity: 0.85;
+            transition: border-color 0.2s, opacity 0.2s;
+        }
+        
+        .form-group:not(.required) input:hover,
+        .form-group:not(.required) .select-trigger:hover {
+            border-color: #444b5e !important;
+            opacity: 1;
+        }
+        
+        .survey-form input[type="text"],
+        .survey-form input[type="email"] {
+            width: 100%;
+            height: 48px;
+            padding: 0 14px;
+            background-color: #161920;
+            border: 1px solid #232834;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 13px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 300;
+        }
+        .survey-form input:focus { outline: none; border-color: #8b6ff2; }
+
+        /* Сетка чекбоксов */
+        .form-group.required .checkbox-grid {
+            border: 1px solid rgba(139, 111, 242, 0.2);
+            border-radius: 12px;
+            padding: 8px;
+            background: rgba(139, 111, 242, 0.05);
+        }
+        
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 4px;
+        }
+        .custom-checkbox {
+            background: #161920;
+            border: 1px solid #232834;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .custom-checkbox:hover { background: #1c2029; border-color: #0073e6; }
+        .checkbox-text { font-size: 12px; font-weight: 300; font-family: 'Manrope', sans-serif; }
+
+        /* КАСТОМНЫЕ СЕЛЕКТЫ (DIV) */
+        .custom-select-wrapper { position: relative; width: 100%; }
+        .custom-select {
+            position: relative;
+            background: #161920;
+            border: 1px solid #232834;
+            border-radius: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .select-trigger {
+            height: 48px;
+            padding: 0 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 300;
+        }
+        .select-trigger .arrow {
+            border: solid #94a3b8;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(45deg);
+            transition: transform 0.2s;
+        }
+        .custom-select.open { border-color: #8b6ff2; }
+        .custom-select.open .select-trigger .arrow { transform: rotate(-135deg); }
+        .custom-select.open .select-options { display: block !important; }
+        
+        /* Выпадающее меню вариантов выбора — СВЕТЛОЕ С ТЁМНЫМ ТЕКСТОМ */
+        .select-options {
+            position: absolute;
+            top: 105%;
+            left: 0;
+            right: 0;
+            
+            /* СВЕТЛЫЙ КОНТРАСТНЫЙ ФОН */
+            background: #ffffff !important; 
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            
+            display: none;
+            
+            /* ЖЕСТКИЙ ПРИОРИТЕТ ОТОБРАЖЕНИЯ: теперь плашка гарантированно всплывет поверх кнопки отправки */
+            z-index: 9999 !important; 
+            
+            max-height: 220px;
+            overflow-y: auto;
+            
+            /* Заметная дорогая тень для объема, чтобы отделять плашку от темного фона */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); 
+        }
+
+        /* Настройка текста вариантов выбора внутри плашки */
+        .option { 
+            padding: 14px 16px; 
+            color: #0f1115 !important; /* ТЕМНЫЙ ЧИТАЕМЫЙ ШРИФТ */
+            font-size: 14px; 
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s; 
+        }
+
+        /* Цвет строки при наведении курсора */
+        .option:hover { 
+            background: #f1f5f9; /* Мягкий светлый блик при наведении */
+            color: #8b6ff2 !important; /* Текст подсвечивается фиолетовым акцентом */
+        }
+
+        /* Кнопка отправки */
+        .btn-submit {
+            height: 48px;
+            background: linear-gradient(135deg, #0073e6 0%, #8b6ff2 50%, #ed7bbb 100%);
+            border: none;
+            border-radius: 12px;
+            color: white !important;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Manrope', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 111, 242, 0.4);
+        }
+        .btn-submit-icon { width: 18px; height: 18px; }
+
+        /* Окно успешной отправки */
+        .success-message {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15,17,21,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            text-align: center;
+        }
+        .success-content { background: #161920; padding: 40px; border-radius: 24px; border: 1px solid #232834; max-width: 400px; }
+        .success-icon { color: #22c55e; margin-bottom: 20px; }
+        .success-icon svg { width: 64px; height: 64px; }
+
+        .footer { padding: 40px 0; border-top: 1px solid #1e222b; background: #0f1115; text-align: center; color: #64748b; font-size: 14px; }
+
+        /* Кнопка "Наверх" */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0073e6, #8b6ff2, #ed7bbb);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-decoration: none;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(139, 111, 242, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(139, 111, 242, 0.7);
+        }
+        .back-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Холст для мышиного шлейфа */
+        #trailCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Контент поверх шлейфа */
+        .hero-content, .directions .container, .survey .container {
+            position: relative;
+            z-index: 2;
+        }
+        .direction-card, .survey-form {
+            position: relative;
+            z-index: 3;
+        }
+
+
+
+        /* Жесткое выравнивание текста по левому краю для блока "Почему танцы" */
+        .header-column-right, 
+        .header-column-right p, 
+        .header-column-right .section-text-block {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+        }
+
+        /* АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 28px; }
+            .section-header-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .header-column-left {
+                position: static;
+            }
+            .section-title-big {
+                font-size: 32px;
+            }
+            .directions-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .direction-card.wide-card { grid-column: span 1; }
+            .survey-form { grid-template-columns: 1fr; gap: 20px; }
+            .form-group.full-width, .btn-submit { grid-column: span 1; }
+            .checkbox-grid { grid-template-columns: 1fr; }
+        }
+            .survey-form { grid-template-columns: 1fr; gap: 20px; }
+            .form-group.full-width, .btn-submit { grid-column: span 1; }
+            .checkbox-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="trailCanvas"></canvas>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="assets/Logo.png" alt="2ГИС ФИТ" class="logo-img">
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-video">
+                <video class="hero-video-element" muted loop autoplay playsinline preload="auto">
+                    <source src="videos/under.mp4" type="video/mp4">
+                </video>
+                <div class="hero-video-overlay"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">Танцуй</span>
+                    <span class="title-line highlight">вместе с 2ГИС ФИТ</span>
+                </h1>
+                <p class="hero-subtitle">мы планируем запустить новые направления. расскажи, что тебе интересно!</p>
+                <div class="hero-buttons">
+                    <a href="#survey" class="btn btn-primary">
+                        <span>Пройти опрос</span>
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="directions">
+        <div class="container">
+            <div class="section-header-grid">
+                <div class="header-column-left">
+                    <h2 class="section-title-big">
+                        Почему<br><span class="title-accent">танцы?</span>
+                    </h2>
+                </div>
+                <div class="header-column-right">
+                    <p class="section-text-unbounded">
+                        Мы в компании круто прокачали заботу о теле:<br>
+                        у нас есть Mobility, Stretching, Body sculpt и Здоровая спина.
+                    </p>
+                    <p class="section-text-inter">
+                        Но ведь танцы — это тоже спорт, но с совершенно другим вайбом.<br>
+                        Это способ полностью разгрузить голову после сложных рабочих задач,<br>
+                        <span class="text-accent-gradient">выплеснуть эмоции и поймать тот самый драйвовый темп,</span><br>
+                        который помогает оставаться эффективными и в жизни, и в работе.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="directions-grid">
+                <!-- FEMALE DANCEHALL -->
+                <div class="direction-card" data-direction="female-dancehall">
+                    <div class="video-wrapper">
+                        <video class="card-video" muted loop playsinline preload="auto" poster="videos/female-dancehall.png">
+                            <source src="videos/female-dancehall.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">FEMALE DANCEHALL</h3>
+                        <p class="card-desc">Стиль с массой свободы и проявления женственности. Разбираем техники, развиваем мобильность и пластичность. Всё через здоровый подход к телу.</p>
+                    </div>
+                </div>
+
+                <div class="direction-card" data-direction="bachata">
+                    <div class="video-wrapper">
+                        <video class="card-video" muted loop playsinline preload="auto" poster="videos/bachata.png">
+                            <source src="videos/bachata.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">BACHATA</h3>
+                        <p class="card-desc">Бачата соло — свобода самовыражения в каждом движении. Техника, ритм, чувственность и работа с телом без партнёра.</p>
+                    </div>
+                </div>
+
+                <div class="direction-card" data-direction="choreo">
+                    <div class="video-wrapper">
+                        <video class="card-video" muted loop playsinline preload="auto" poster="videos/choreo-backup.png">
+                            <source src="videos/choreo-backup.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">CHOREO</h3>
+                        <p class="card-desc">Современная хореография. Танцевальные связки, работа в кадре, стиль и уверенность в каждом движении.</p>
+                    </div>
+                </div>
+
+                <div class="direction-card" data-direction="zumba">
+                    <div class="video-wrapper">
+                        <video class="card-video" muted loop playsinline preload="auto" poster="videos/zumba.png">
+                            <source src="videos/zumba.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">ZUMBA</h3>
+                        <p class="card-desc">Фитнес-программа с латиноамериканскими мотивами. Весёлая, энергичная, сжигает калории незаметно!</p>
+                    </div>
+                </div>
+
+                <div class="direction-card" data-direction="high-heels">
+                    <div class="video-wrapper">
+                        <video class="card-video" muted loop playsinline preload="auto" poster="videos/high-heels.png">
+                            <source src="videos/high-heels.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">HIGH HEELS</h3>
+                        <p class="card-desc">Танцы на каблуках — уверенность, сексуальность и мощная энергетика. Развитие координации и чувства ритма.</p>
+                    </div>
+                </div>
+
+                <div class="direction-card" data-direction="female-choreo">
+                    <div class="video-wrapper">
+                        <video class="card-video" muted loop playsinline preload="auto" poster="videos/female-choreo.png">
+                            <source src="videos/female-choreo.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-play-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">FEMALE CHOREO</h3>
+                        <p class="card-desc">Женственная хореография под современные хиты. Постановка связок, работа с телом, грация и пластика.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="survey" id="survey">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Заполни форму, давай скорее запустим то,<br>что <span class="title-accent">нравится тебе!</span>
+                </h2>
+            </div>
+            
+            <form id="danceSurvey" class="survey-form">
+                <div class="form-group required">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" required placeholder="Твоё имя">
+                </div>
+
+                <div class="form-group required">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@2gis\.ru$" title="Пожалуйста, используйте корпоративную почту в домене @2gis.ru" placeholder="username@2gis.ru">
+                </div>
+
+                <div class="form-group required">
+                    <label class="group-label">
+                        <span>Что тебя интересует?</span>
+                        <span class="group-hint">(можно несколько)</span>
+                    </label>
+                    
+                    <div class="checkbox-grid">
+                        <div class="checkbox-column">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="interested" value="female_choreo">
+                                <span class="checkbox-text">FEMALE CHOREO</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="interested" value="high_heels">
+                                <span class="checkbox-text">HIGH HEELS</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="interested" value="female_dancehall">
+                                <span class="checkbox-text">FEMALE DANCEHALL</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-column">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="interested" value="choreo">
+                                <span class="checkbox-text">CHOREO</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="interested" value="bachata">
+                                <span class="checkbox-text">БАЧАТА</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="interested" value="zumba">
+                                <span class="checkbox-text">ZUMBA</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="other-direction">Другое направление</label>
+                    <input type="text" id="other-direction" name="other_direction" placeholder="Например: Electro Hip-Hop, Vogue...">
+                </div>
+
+                <div class="form-group">
+                    <label for="priceSelect">Сколько тебе комфортно выделять на танцы в месяц?</label>
+                    <div class="custom-select-wrapper">
+                        <div class="custom-select" id="priceSelect">
+                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                            <div class="select-options">
+                                <div class="option" data-value="one-time">Разово (до 600 рублей за занятие)</div>
+                                <div class="option" data-value="up-to-3500">До 3 500 рублей (4 занятия)</div>
+                                <div class="option" data-value="3500-5500">3 500 – 5 500 рублей (6-8 занятий)</div>
+                                <div class="option" data-value="5500-7500">5 500 – 7 500 рублей (8-12 занятий)</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="price" id="priceInput">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Сколько по времени готова заниматься?</label>
+                    <div class="custom-select-wrapper">
+                        <div class="custom-select" id="durationSelect">
+                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                            <div class="select-options">
+                                <div class="option" data-value="45min">45 минут</div>
+                                <div class="option" data-value="60min">60 минут (стандарт)</div>
+                                <div class="option" data-value="90min">90 минут (интенсив)</div>
+                                <div class="option" data-value="any">Мне подходят любые варианты</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="duration" id="durationInput">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="frequency">Сколько раз в неделю готова ходить?</label>
+                    <div class="custom-select-wrapper">
+                        <div class="custom-select" id="frequencySelect">
+                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                            <div class="select-options">
+                                <div class="option" data-value="1">1 раз в неделю</div>
+                                <div class="option" data-value="2">2 раза в неделю</div>
+                                <div class="option" data-value="3">3 раза в неделю</div>
+                                <div class="option" data-value="4+">4+ раза в неделю</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="frequency" id="frequencyInput">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="schedule">Удобное время</label>
+                    <div class="custom-select-wrapper">
+                        <div class="custom-select" id="scheduleSelect">
+                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                            <div class="select-options">
+                                <div class="option" data-value="morning">Утро (до 10:00)</div>
+                                <div class="option" data-value="lunch">Обед (с 12:00 до 15:00)</div>
+                                <div class="option" data-value="evening">Вечер (с 16:00 до 18:00)</div>
+                                <div class="option" data-value="late_evening">Поздний вечер (с 18:00 до 21:00)</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="schedule" id="scheduleInput">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Опыт в танцах</label>
+                    <div class="custom-select-wrapper">
+                        <div class="custom-select" id="experienceSelect">
+                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                            <div class="select-options">
+                                <div class="option" data-value="none">Абсолютный новичок (очень хочу попробовать)</div>
+                                <div class="option" data-value="basic">Знаю базу (танцую дома перед зеркалом)</div>
+                                <div class="option" data-value="middle">Есть опыт (учила связки, ходила на классы)</div>
+                                <div class="option" data-value="pro">Профи (уверенно танцую на каблуках/стрите)</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="experience" id="experienceInput">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-submit">
+                    <span>ОТПРАВИТЬ</span>
+                    <svg class="btn-submit-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <div id="successMessage" class="success-message">
+        <div class="container">
+            <div class="success-content">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>Готово!</h3>
+                <p>Мы получили твой ответ и скоро свяжемся с тобой.</p>
+                <button class="btn btn-primary" onclick="closeSuccess()">Отлично</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 2ГИС ФИТ. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+
+    <script>
+    // Кастомный выбор вариантов в выпадающих списках
+    function initCustomSelect(selectId, inputId) {
+        const select = document.getElementById(selectId);
+        const input = document.getElementById(inputId);
+        if (!select || !input) return;
+        
+        const trigger = select.querySelector('.select-trigger');
+        
+        // Клик строго по триггеру (шапке селекта)
+        trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Закрываем все остальные открытые селекты
+            document.querySelectorAll('.custom-select').forEach(s => {
+                if (s !== select) s.classList.remove('open');
+            });
+            
+            // Переключаем текущий
+            select.classList.toggle('open');
+        });
+        
+        // Клик по варианту ответа
+        select.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const value = this.getAttribute('data-value');
+                const text = this.innerText;
+                
+                select.querySelector('.select-trigger span').innerText = text;
+                input.value = value;
+                
+                select.classList.remove('open');
+            });
+        });
+    }
+    
+    // Поведение видео при наведении мыши (автоплей при наведении, пауза с сохранением позиции когда убрали)
+    document.querySelectorAll('.direction-card').forEach(card => {
+        const video = card.querySelector('.card-video');
+        if(video) {
+            card.addEventListener('mouseenter', () => video.play());
+            card.addEventListener('mouseleave', () => video.pause());
+        }
+    });
+
+    // Обработка отправки формы с отправкой на n8n Webhook
+    document.getElementById('danceSurvey').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Проверяем, выбран ли хотя бы один чекбокс
+        const checkedCheckboxes = document.querySelectorAll('input[name="interested"]:checked');
+        if (checkedCheckboxes.length === 0) {
+            alert('Пожалуйста, выбери хотя бы одно направление!');
+            return;
+        }
+        
+        // Собираем массив выбранных чекбоксов (направления танцев)
+        const interested = [];
+        document.querySelectorAll('input[name="interested"]:checked').forEach(cb => {
+            interested.push(cb.value);
+        });
+        
+        // Формируем аккуратный объект для отправки
+        const data = {
+            name: document.getElementById('name') ? document.getElementById('name').value : '',
+            email: document.getElementById('email') ? document.getElementById('email').value : '',
+            interested: interested,
+            other_direction: document.getElementById('other-direction') ? document.getElementById('other-direction').value : '',
+            
+            // Забираем понятный текст из активных триггеров селектов:
+            price: document.querySelector('#priceSelect .select-trigger') ? document.querySelector('#priceSelect .select-trigger').textContent.trim() : '',
+            duration: document.querySelector('#durationSelect .select-trigger') ? document.querySelector('#durationSelect .select-trigger').textContent.trim() : '',
+            frequency: document.querySelector('#frequencySelect .select-trigger') ? document.querySelector('#frequencySelect .select-trigger').textContent.trim() : '',
+            schedule: document.querySelector('#scheduleSelect .select-trigger') ? document.querySelector('#scheduleSelect .select-trigger').textContent.trim() : '',
+            experience: document.querySelector('#experienceSelect .select-trigger') ? document.querySelector('#experienceSelect .select-trigger').textContent.trim() : ''
+        };
+
+        // https://n8n.2gis.io/webhook-test/cb917088-358c-4b83-b074-97e09240a457
+        const webhookUrl = 'https://n8n.2gis.io/webhook-test/cb917088-358c-4b83-b074-97e09240a457'; 
+
+        // Отправляем данные методом POST в формате JSON
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                // Если всё улетело успешно, показываем наше красивое окно "Готово!"
+                document.getElementById('successMessage').style.display = 'flex';
+            } else {
+                alert('Что-то пошло не так при отправке. Попробуй еще раз!');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Ошибка соединения с сервером.');
+        });
+    });
+
+    function closeSuccess() {
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('danceSurvey').reset();
+        document.querySelectorAll('.select-trigger span').forEach(span => span.innerText = 'Выбери вариант');
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        initCustomSelect('durationSelect', 'durationInput');
+        initCustomSelect('frequencySelect', 'frequencyInput');
+        initCustomSelect('scheduleSelect', 'scheduleInput');
+        initCustomSelect('experienceSelect', 'experienceInput');
+        initCustomSelect('priceSelect', 'priceInput');
+        
+        // Логика закрытия при клике в любое другое место экрана
+        window.addEventListener('click', function(e) {
+            document.querySelectorAll('.custom-select').forEach(select => {
+                if (!select.contains(e.target)) {
+                    select.classList.remove('open');
+                }
+            });
+        });
+    });
+
+    // Интерактивный шлейф от движения мыши на Canvas
+    const canvas = document.getElementById('trailCanvas');
+    const ctx = canvas.getContext('2d');
+    let points = [];
+    const maxPoints = 25;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    window.addEventListener('mousemove', function(e) {
+        points.push({
+            x: e.clientX,
+            y: e.clientY,
+            age: 0
+        });
+    });
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        if (points.length > 1) {
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            
+            for (let i = 1; i < points.length - 1; i++) {
+                const xc = (points[i].x + points[i + 1].x) / 2;
+                const yc = (points[i].y + points[i + 1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            
+            ctx.strokeStyle = '#8b6ff2';
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#ed7bbb';
+            
+            ctx.stroke();
+        }
+        
+        for (let i = 0; i < points.length; i++) {
+            points[i].age++;
+        }
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+        
+        if (points.length > 0 && points[0].age > maxPoints) {
+            points.shift();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    animate();
+    </script>
+</body>
+</html>
