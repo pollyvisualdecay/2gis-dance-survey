@@ -43,11 +43,6 @@ temp/
 dist/
 build/
 
-# Video files (comment out if you want to track videos)
-videos/*.mp4
-videos/*.webm
-videos/*.ogg
-
 # Backup files
 *.bak
 *.backup
