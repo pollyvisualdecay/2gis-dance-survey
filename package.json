@@ -1,0 +1,21 @@
+{
+  "name": "dance-survey",
+  "version": "1.0.0",
+  "description": "Опросник танцевальных направлений 2ГИС ФИТ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "npx http-server -p 8000 -c-1",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "survey",
+    "dance",
+    "2gis-fit"
+  ],
+  "author": "2GIS FIT",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

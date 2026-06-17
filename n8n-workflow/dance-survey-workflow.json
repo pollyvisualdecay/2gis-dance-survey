@@ -1,0 +1,129 @@
+{
+  "name": "Dance Survey Form Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dance-survey",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "dance-survey-webhook"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "success",
+              "value": "true"
+            },
+            {
+              "name": "message",
+              "value": "Данные успешно получены"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "respond-node",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "Ответы на опрос"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $json.name }}",
+            "surname": "={{ $json.surname }}",
+            "email": "={{ $json.email }}",
+            "interested": "={{ $json.interested.join(', ') }}",
+            "other_direction": "={{ $json.other_direction }}",
+            "price": "={{ $json.price }}",
+            "duration": "={{ $json.duration }}",
+            "frequency": "={{ $json.frequency }}",
+            "schedule": "={{ $json.schedule }}",
+            "experience": "={{ $json.experience }}",
+            "timestamp": "={{ $json.timestamp }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "google-sheets-node",
+      "name": "Add to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "🎉 Новый ответ на опрос танцев!\n\n👤 {{ $json.name }} {{ $json.surname }}\n📧 {{ $json.email }}\n💃 Интересы: {{ $json.interested.join(', ') }}\n💰 Цена: {{ $json.price }}\n⏱️ Длительность: {{ $json.duration }}\n📅 Частота: {{ $json.frequency }}\n🕐 Время: {{ $json.schedule }}\n📊 Опыт: {{ $json.experience }}",
+        "additionalFields": {}
+      },
+      "id": "telegram-node",
+      "name": "Send Telegram Notification",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [450, 500]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Add to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Telegram Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-17T02:44:00.000Z",
+  "versionId": "2"
+}

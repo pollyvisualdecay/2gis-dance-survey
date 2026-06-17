@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  # n8n - Workflow automation
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: dance-survey-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      # Basic configuration
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      
+      # Webhook configuration
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678}
+      - WEBHOOK_TUNNEL_URL=${WEBHOOK_URL:-http://localhost:5678}
+      
+      # Editor base URL
+      - N8N_EDITOR_BASE_URL=${N8N_EDITOR_BASE_URL:-http://localhost:5678}
+      
+      # Security
+      - N8N_SECURITY_EXAMPLES=false
+      - GENERIC_TIMEZONE=Europe/Moscow
+      - TZ=Europe/Moscow
+      
+      # Database (using SQLite for simplicity)
+      - DB_TYPE=sqlite
+      - DB_SQLITE_PATH=/data/n8n.sqlite
+      
+      # Credentials
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      
+      # Optional: Basic auth for n8n UI
+      # - N8N_BASIC_AUTH_ACTIVE=true
+      # - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
+      # - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD:-your-password}
+      
+      # Optional: Telegram credentials
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      
+      # Optional: Google credentials
+      - GOOGLE_CREDENTIALS=${GOOGLE_CREDENTIALS:-}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n-workflow:/data/workflow
+    networks:
+      - dance-network
+
+  # Nginx - Reverse proxy and static file server
+  nginx:
+    image: nginx:alpine
+    container_name: dance-survey-nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+      - "${NGINX_SSL_PORT:-443}:443"
+    volumes:
+      - ./dance-survey:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - n8n
+    networks:
+      - dance-network
+
+  # Optional: PostgreSQL for n8n (alternative to SQLite)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: dance-survey-postgres
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_USER=${POSTGRES_USER:-n8n}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-n8n-password}
+  #     - POSTGRES_DB=${POSTGRES_DB:-n8n}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - dance-network
+
+networks:
+  dance-network:
+    driver: bridge
+
+volumes:
+  n8n_data:
+    driver: local
+  postgres_data:
+    driver: local
