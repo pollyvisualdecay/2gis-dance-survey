@@ -181,6 +181,7 @@
             opacity: 0.95;
             text-align: left !important;
             letter-spacing: 0.5px;
+            max-width: 600px;
         }
         .section-text-inter {
             font-family: 'Inter', sans-serif;
@@ -192,6 +193,7 @@
             opacity: 0.8;
             text-align: left !important;
             letter-spacing: 0.5px;
+            max-width: 600px;
         }
         .btn-arrow {
             width: 20px;
@@ -614,6 +616,13 @@
             .section-title-big {
                 font-size: 32px;
             }
+            .section-text-unbounded,
+            .section-text-inter {
+                font-size: 15px;
+                max-width: 100%;
+                hyphens: auto;
+                -webkit-hyphens: auto;
+            }
             .directions-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -622,6 +631,9 @@
             .survey-form { grid-template-columns: 1fr; gap: 20px; }
             .form-group.full-width, .btn-submit { grid-column: span 1; }
             .checkbox-grid { grid-template-columns: 1fr; }
+            .checkbox-grid-two-columns {
+                grid-template-columns: 1fr;
+            }
         }
             .survey-form { grid-template-columns: 1fr; gap: 20px; }
             .form-group.full-width, .btn-submit { grid-column: span 1; }
@@ -685,7 +697,7 @@
                         Но ведь танцы — это тоже спорт, но с совершенно другим вайбом.<br>
                         Это способ полностью разгрузить голову после сложных рабочих задач,<br>
                         <span class="text-accent-gradient">выплеснуть эмоции и поймать тот самый драйвовый темп,</span><br>
-                        который помогает оставаться эффективными и в жизни, и в работе.
+                        который помогает оставаться эффективными&nbsp;в жизни, и в работе.
                     </p>
                 </div>
             </div>
