@@ -707,7 +707,7 @@
                 <!-- FEMALE DANCEHALL -->
                 <div class="direction-card" data-direction="female-dancehall">
                     <div class="video-wrapper">
-                        <video class="card-video" muted loop playsinline preload="metadata" poster="videos/female-dancehall.png">
+                        <video class="card-video" muted loop autoplay playsinline preload="metadata" poster="videos/female-dancehall.png">
                             <source src="videos/female-dancehall_new.mp4" type="video/mp4">
                         </video>
                         <div class="video-play-btn">
@@ -1148,11 +1148,12 @@
         });
     });
 
-    // Интерактивный шлейф от движения мыши на Canvas
+    // Интерактивный шлейф от движения мыши на Canvas (только для Hero блока)
     const canvas = document.getElementById('trailCanvas');
     const ctx = canvas.getContext('2d');
     let points = [];
     const maxPoints = 25;
+    const heroSection = document.querySelector('.hero');
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -1162,11 +1163,17 @@
     resizeCanvas();
 
     window.addEventListener('mousemove', function(e) {
-        points.push({
-            x: e.clientX,
-            y: e.clientY,
-            age: 0
-        });
+        // Проверяем, находится ли курсор в секции Hero
+        if (heroSection) {
+            const rect = heroSection.getBoundingClientRect();
+            if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                points.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    age: 0
+                });
+            }
+        }
     });
 
     function animate() {
