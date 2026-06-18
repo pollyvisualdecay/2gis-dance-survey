@@ -1277,10 +1277,15 @@
         document.querySelectorAll('.select-trigger span').forEach(span => span.innerText = 'Выбери вариант');
     }
     
-    document.addEventListener('DOMContentLoaded', function() {
+    </script>
+
+    // Весь код инициализации выполняется после полной загрузки всех ресурсов (включая видео)
+    window.addEventListener('load', () => {
+        console.log("Все ресурсы и видео полностью загружены. Инициализируем скрипты.");
+        
+        // Инициализация селектов
         initCustomSelect('durationSelect', 'durationInput');
         initCustomSelect('frequencySelect', 'frequencyInput');
-        initCustomSelect('scheduleSelect', 'scheduleInput');
         initCustomSelect('experienceSelect', 'experienceInput');
         initCustomSelect('priceSelect', 'priceInput');
         
@@ -1292,14 +1297,13 @@
                 }
             });
         });
-    });
-
-    // Интерактивный шлейф от движения мыши на Canvas (только для Hero блока)
-    const canvas = document.getElementById('trailCanvas');
-    const ctx = canvas.getContext('2d');
-    let points = [];
-    const maxPoints = 25;
-    const heroSection = document.querySelector('.hero');
+        
+        // Интерактивный шлейф от движения мыши на Canvas
+        const canvas = document.getElementById('trailCanvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        const maxPoints = 25;
+        const heroSection = document.querySelector('.hero');
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -1375,6 +1379,8 @@
     backToTopBtn.addEventListener('click', (e) => {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
     });
     </script>
 </body>
