@@ -40,6 +40,11 @@
         .logo-img {
             height: 40px;
             display: block;
+            max-width: 150px;
+            object-fit: contain;
+        }
+        .logo-img[src=""], .logo-img:not([src]) {
+            display: none;
         }
 
         /* Главный баннер (Hero) */
@@ -821,7 +826,7 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <img src="assets/Logo.png" alt="2ГИС ФИТ" class="logo-img">
+                <img src="assets/Logo.png" alt="2ГИС ФИТ" class="logo-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\"font-family: \'Unbounded\', sans-serif; font-weight: 700; font-size: 20px; color: #ffffff;\">2ГИС ФИТ</span>">
             </div>
         </div>
     </header>
