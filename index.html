@@ -579,6 +579,21 @@
         }
         .custom-checkbox:hover { background: #1c2029; border-color: #0073e6; }
         .checkbox-text { font-size: 12px; font-weight: 300; font-family: 'Manrope', sans-serif; }
+        
+        /* Стили для чекбокса согласия */
+        .privacy-group {
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+        .privacy-group .custom-checkbox {
+            background: transparent;
+            border: none;
+            padding: 8px 0;
+        }
+        .privacy-group .custom-checkbox:hover {
+            background: transparent;
+            border-color: transparent;
+        }
 
         /* КАСТОМНЫЕ СЕЛЕКТЫ (DIV) */
         .custom-select-wrapper { position: relative; width: 100%; }
@@ -991,30 +1006,36 @@
                     </div>
                     <div class="form-group required">
                         <label class="group-label">УДОБНЫЕ ДНИ И ВРЕМЯ ДЛЯ ТАНЦЕВ *</label>
-                        <div class="checkbox-grid-two-columns">
+                        <div class="checkbox-grid">
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="schedule" value="mon_evening">
-                                <span class="checkbox-text">Понедельник (Вечер после 17:00)</span>
+                                <input type="checkbox" name="schedule" value="Будни: Вечер (18:30 - 20:15)">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">🌆 Будни (Пн-Пт): Вечер 18:30 - 20:15</span>
                             </label>
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="schedule" value="tue_thu_morning">
-                                <span class="checkbox-text">Вторник / Четверг (Утро до 12:00)</span>
+                                <input type="checkbox" name="schedule" value="Будни: Поздний вечер (20:15 - 22:00)">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">🌃 Будни (Пн-Пт): Поздний вечер 20:15 - 22:00</span>
                             </label>
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="schedule" value="tue_thu_afternoon">
-                                <span class="checkbox-text">Вторник / Четверг (День 14:00 - 16:00)</span>
+                                <input type="checkbox" name="schedule" value="Выходные: Утро (09:00 - 13:00)">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">🌅 Выходные (Сб-Вс): Утро 09:00 - 13:00</span>
                             </label>
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="schedule" value="thu_early_evening">
-                                <span class="checkbox-text">Четверг (Ранний вечер 17:00)</span>
+                                <input type="checkbox" name="schedule" value="Выходные: День (13:00 - 17:00)">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">☀️ Выходные (Сб-Вс): Обед / День 13:00 - 17:00</span>
                             </label>
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="schedule" value="wed_fri_morning">
-                                <span class="checkbox-text">Среда / Пятница (Утро до 12:00)</span>
+                                <input type="checkbox" name="schedule" value="Выходные: Вечер (17:00 - 21:00)">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">🌆 Выходные (Сб-Вс): Вечер 17:00 - 21:00</span>
                             </label>
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="schedule" value="any_time">
-                                <span class="checkbox-text">Подстроюсь под любое свободное окно</span>
+                                <input type="checkbox" name="schedule" value="Любой день и время">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">🗓️ Готова в любое время и день (подстроюсь)</span>
                             </label>
                         </div>
                     </div>
@@ -1094,6 +1115,15 @@
                             <input type="hidden" name="price" id="priceInput">
                         </div>
                     </div>
+                </div>
+
+                <!-- ЧЕКБОКС СОГЛАСИЯ -->
+                <div class="form-group privacy-group">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="privacy" required>
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">Я согласен на <a href="./soglasie.pdf" target="_blank" style="color: #6c5ce7; text-decoration: underline;">обработку персональных данных</a> *</span>
+                    </label>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-submit">
