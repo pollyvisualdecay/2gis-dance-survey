@@ -961,33 +961,30 @@
                 <!-- РЯД 2: ЧТО ИНТЕРЕСУЕТ + УДОБНЫЕ ДНИ И ВРЕМЯ -->
                 <div class="form-row-two-col">
                     <div class="form-group required">
-                        <label class="group-label">
-                            <span>ЧТО ТЕБЯ ИНТЕРЕСУЕТ?</span>
-                            <span class="group-hint">(можно несколько)</span>
-                        </label>
+                        <label class="group-label">ЧТО ТЕБЯ ИНТЕРЕСУЕТ? (МОЖНО НЕСКОЛЬКО)</label>
                         <div class="checkbox-grid">
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="interested" value="female_choreo">
+                                <input type="checkbox" name="directions" value="Female Choreo">
                                 <span class="checkbox-text">FEMALE CHOREO</span>
                             </label>
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="interested" value="high_heels">
-                                <span class="checkbox-text">HIGH HEELS</span>
-                            </label>
-                            <label class="custom-checkbox">
-                                <input type="checkbox" name="interested" value="female_dancehall">
-                                <span class="checkbox-text">FEMALE DANCEHALL</span>
-                            </label>
-                            <label class="custom-checkbox">
-                                <input type="checkbox" name="interested" value="choreo">
+                                <input type="checkbox" name="directions" value="Choreo">
                                 <span class="checkbox-text">CHOREO</span>
                             </label>
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="interested" value="bachata">
+                                <input type="checkbox" name="directions" value="High Heels">
+                                <span class="checkbox-text">HIGH HEELS</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="directions" value="Бачата">
                                 <span class="checkbox-text">БАЧАТА</span>
                             </label>
                             <label class="custom-checkbox">
-                                <input type="checkbox" name="interested" value="zumba">
+                                <input type="checkbox" name="directions" value="Female Dancehall">
+                                <span class="checkbox-text">FEMALE DANCEHALL</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="directions" value="Zumba">
                                 <span class="checkbox-text">ZUMBA</span>
                             </label>
                         </div>
@@ -1185,16 +1182,16 @@
         e.preventDefault();
         
         // Проверяем, выбран ли хотя бы один чекбокс
-        const checkedCheckboxes = document.querySelectorAll('input[name="interested"]:checked');
+        const checkedCheckboxes = document.querySelectorAll('input[name="directions"]:checked');
         if (checkedCheckboxes.length === 0) {
             alert('Пожалуйста, выбери хотя бы одно направление!');
             return;
         }
         
         // Собираем массив выбранных чекбоксов (направления танцев)
-        const interested = [];
-        document.querySelectorAll('input[name="interested"]:checked').forEach(cb => {
-            interested.push(cb.value);
+        const directions = [];
+        document.querySelectorAll('input[name="directions"]:checked').forEach(cb => {
+            directions.push(cb.value);
         });
         
         // Собираем массив выбранных чекбоксов (удобные дни и время)
@@ -1207,7 +1204,7 @@
         const data = {
             name: document.getElementById('name') ? document.getElementById('name').value : '',
             email: document.getElementById('email') ? document.getElementById('email').value : '',
-            interested: interested,
+            directions: directions,
             other_direction: document.getElementById('other-direction') ? document.getElementById('other-direction').value : '',
             
             // Забираем понятный текст из активных триггеров селектов:
