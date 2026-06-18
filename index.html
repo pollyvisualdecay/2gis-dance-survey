@@ -442,22 +442,37 @@
             opacity: 0.9;
             margin-bottom: 24px;
         }
+        
+        /* Контейнер формы делаем шире, чтобы полям не было тесно */
         .survey-form {
-            max-width: 960px;
+            max-width: 1000px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Две колонки */
-            gap: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
         }
+
+        /* Строгий двухколонный ряд */
+        .form-row-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* Строка на всю ширину (для бюджета внизу) */
+        .form-row-full-width {
+            width: 100%;
+        }
+
+        /* Каждое отдельное поле */
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 12px;
+            width: 100%;
         }
-        /* Растягиваем кнопку отправки на всю ширину формы */
-        .btn-submit {
-            grid-column: span 2;
-        }
+
         .form-group label, .group-label span {
             color: #ffffff !important;
             font-size: 13px;
@@ -469,7 +484,12 @@
         }
         .group-hint { color: #94a3b8; text-transform: none; font-size: 11px; opacity: 1 !important; }
 
-        .group-hint { color: #94a3b8; text-transform: none; font-size: 11px; opacity: 1 !important; }
+        /* Сетка чекбоксов внутри направлений */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
 
         /* Сетка чекбоксов для дней и времени */
         .checkbox-grid-two-columns {
@@ -481,6 +501,14 @@
         @media (max-width: 600px) {
             .checkbox-grid-two-columns {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* Адаптив для телефонов */
+        @media (max-width: 768px) {
+            .form-row-two-col {
+                grid-template-columns: 1fr;
+                gap: 24px;
             }
         }
 
@@ -530,7 +558,7 @@
         }
         .survey-form input:focus { outline: none; border-color: #8b6ff2; }
 
-        /* Сетка чекбоксов */
+        /* Сетка чекбоксов для направлений */
         .form-group.required .checkbox-grid {
             border: 1px solid rgba(139, 111, 242, 0.2);
             border-radius: 12px;
@@ -538,12 +566,6 @@
             background: rgba(139, 111, 242, 0.05);
         }
         
-        .checkbox-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 4px;
-        }
         .custom-checkbox {
             background: #161920;
             border: 1px solid #232834;
@@ -924,24 +946,26 @@
             </div>
             
             <form id="danceSurvey" class="survey-form">
-                <div class="form-group required">
-                    <label for="name">Имя</label>
-                    <input type="text" id="name" name="name" required placeholder="Твоё имя">
+                <!-- РЯД 1: ИМЯ + EMAIL -->
+                <div class="form-row-two-col">
+                    <div class="form-group required">
+                        <label for="name">ИМЯ</label>
+                        <input type="text" id="name" name="name" required placeholder="Твоё имя">
+                    </div>
+                    <div class="form-group required">
+                        <label for="email">EMAIL</label>
+                        <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@2gis\.ru$" title="Пожалуйста, используйте корпоративную почту в домене @2gis.ru" placeholder="username@2gis.ru">
+                    </div>
                 </div>
 
-                <div class="form-group required">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@2gis\.ru$" title="Пожалуйста, используйте корпоративную почту в домене @2gis.ru" placeholder="username@2gis.ru">
-                </div>
-
-                <div class="form-group required">
-                    <label class="group-label">
-                        <span>Что тебя интересует?</span>
-                        <span class="group-hint">(можно несколько)</span>
-                    </label>
-                    
-                    <div class="checkbox-grid">
-                        <div class="checkbox-column">
+                <!-- РЯД 2: ЧТО ИНТЕРЕСУЕТ + УДОБНЫЕ ДНИ И ВРЕМЯ -->
+                <div class="form-row-two-col">
+                    <div class="form-group required">
+                        <label class="group-label">
+                            <span>ЧТО ТЕБЯ ИНТЕРЕСУЕТ?</span>
+                            <span class="group-hint">(можно несколько)</span>
+                        </label>
+                        <div class="checkbox-grid">
                             <label class="custom-checkbox">
                                 <input type="checkbox" name="interested" value="female_choreo">
                                 <span class="checkbox-text">FEMALE CHOREO</span>
@@ -954,8 +978,6 @@
                                 <input type="checkbox" name="interested" value="female_dancehall">
                                 <span class="checkbox-text">FEMALE DANCEHALL</span>
                             </label>
-                        </div>
-                        <div class="checkbox-column">
                             <label class="custom-checkbox">
                                 <input type="checkbox" name="interested" value="choreo">
                                 <span class="checkbox-text">CHOREO</span>
@@ -970,110 +992,110 @@
                             </label>
                         </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="other-direction">Другое направление</label>
-                    <input type="text" id="other-direction" name="other_direction" placeholder="Например: Electro Hip-Hop, Vogue...">
-                </div>
-
-                <div class="form-group">
-                    <label for="priceSelect">Сколько тебе комфортно выделять на танцы в месяц?</label>
-                    <div class="custom-select-wrapper">
-                        <div class="custom-select" id="priceSelect">
-                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
-                            <div class="select-options">
-                                <div class="option" data-value="one-time">Разово (до 600 рублей за занятие)</div>
-                                <div class="option" data-value="up-to-3500">До 3 500 рублей (4 занятия)</div>
-                                <div class="option" data-value="3500-5500">3 500 – 5 500 рублей (6-8 занятий)</div>
-                                <div class="option" data-value="5500-7500">5 500 – 7 500 рублей (8-12 занятий)</div>
-                            </div>
+                    <div class="form-group required">
+                        <label class="group-label">УДОБНЫЕ ДНИ И ВРЕМЯ ДЛЯ ТАНЦЕВ *</label>
+                        <div class="checkbox-grid-two-columns">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="schedule" value="mon_evening">
+                                <span class="checkbox-text">Понедельник (Вечер после 17:00)</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="schedule" value="tue_thu_morning">
+                                <span class="checkbox-text">Вторник / Четверг (Утро до 12:00)</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="schedule" value="tue_thu_afternoon">
+                                <span class="checkbox-text">Вторник / Четверг (День 14:00 - 16:00)</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="schedule" value="thu_early_evening">
+                                <span class="checkbox-text">Четверг (Ранний вечер 17:00)</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="schedule" value="wed_fri_morning">
+                                <span class="checkbox-text">Среда / Пятница (Утро до 12:00)</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" name="schedule" value="any_time">
+                                <span class="checkbox-text">Подстроюсь под любое свободное окно</span>
+                            </label>
                         </div>
-                        <input type="hidden" name="price" id="priceInput">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="duration">Сколько по времени готова заниматься?</label>
-                    <div class="custom-select-wrapper">
-                        <div class="custom-select" id="durationSelect">
-                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
-                            <div class="select-options">
-                                <div class="option" data-value="45min">45 минут</div>
-                                <div class="option" data-value="60min">60 минут (стандарт)</div>
-                                <div class="option" data-value="90min">90 минут (интенсив)</div>
-                                <div class="option" data-value="any">Мне подходят любые варианты</div>
+                <!-- РЯД 3: ДРУГОЕ НАПРАВЛЕНИЕ + ОПЫТ В ТАНЦАХ -->
+                <div class="form-row-two-col">
+                    <div class="form-group">
+                        <label for="other-direction">ДРУГОЕ НАПРАВЛЕНИЕ</label>
+                        <input type="text" id="other-direction" name="other_direction" placeholder="Например: Electro Hip-Hop, Vogue...">
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">ОПЫТ В ТАНЦАХ</label>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select" id="experienceSelect">
+                                <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                                <div class="select-options">
+                                    <div class="option" data-value="none">Абсолютный новичок (очень хочу попробовать)</div>
+                                    <div class="option" data-value="basic">Знаю базу (танцую дома перед зеркалом)</div>
+                                    <div class="option" data-value="middle">Есть опыт (учила связки, ходила на классы)</div>
+                                    <div class="option" data-value="pro">Профи (уверенно танцую на каблуках/стрите)</div>
+                                </div>
                             </div>
+                            <input type="hidden" name="experience" id="experienceInput">
                         </div>
-                        <input type="hidden" name="duration" id="durationInput">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="frequency">Сколько раз в неделю готова ходить?</label>
-                    <div class="custom-select-wrapper">
-                        <div class="custom-select" id="frequencySelect">
-                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
-                            <div class="select-options">
-                                <div class="option" data-value="1">1 раз в неделю</div>
-                                <div class="option" data-value="2">2 раза в неделю</div>
-                                <div class="option" data-value="3">3 раза в неделю</div>
-                                <div class="option" data-value="4+">4+ раза в неделю</div>
+                <!-- РЯД 4: СКОЛЬКО ПО ВРЕМЕНИ + СКОЛЬКО РАЗ В НЕДЕЛЮ -->
+                <div class="form-row-two-col">
+                    <div class="form-group">
+                        <label for="duration">СКОЛЬКО ПО ВРЕМЕНИ ГОТОВА ЗАНИМАТЬСЯ?</label>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select" id="durationSelect">
+                                <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                                <div class="select-options">
+                                    <div class="option" data-value="45min">45 минут</div>
+                                    <div class="option" data-value="60min">60 минут (стандарт)</div>
+                                    <div class="option" data-value="90min">90 минут (интенсив)</div>
+                                    <div class="option" data-value="any">Мне подходят любые варианты</div>
+                                </div>
                             </div>
+                            <input type="hidden" name="duration" id="durationInput">
                         </div>
-                        <input type="hidden" name="frequency" id="frequencyInput">
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency">СКОЛЬКО РАЗ В НЕДЕЛЮ ГОТОВА ХОДИТЬ?</label>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select" id="frequencySelect">
+                                <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                                <div class="select-options">
+                                    <div class="option" data-value="1">1 раз в неделю</div>
+                                    <div class="option" data-value="2">2 раза в неделю</div>
+                                    <div class="option" data-value="3">3 раза в неделю</div>
+                                    <div class="option" data-value="4+">4+ раза в неделю</div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="frequency" id="frequencyInput">
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="group-label">УДОБНЫЕ ДНИ И ВРЕМЯ ДЛЯ ТАНЦЕВ *</label>
-                    <div class="checkbox-grid-two-columns">
-                        <label class="custom-checkbox">
-                            <input type="checkbox" name="schedule" value="mon_evening">
-                            <span class="checkmark"></span>
-                            <span class="checkbox-text">Понедельник (Вечер после 17:00)</span>
-                        </label>
-                        <label class="custom-checkbox">
-                            <input type="checkbox" name="schedule" value="tue_thu_morning">
-                            <span class="checkmark"></span>
-                            <span class="checkbox-text">Вторник / Четверг (Утро до 12:00)</span>
-                        </label>
-                        <label class="custom-checkbox">
-                            <input type="checkbox" name="schedule" value="tue_thu_afternoon">
-                            <span class="checkmark"></span>
-                            <span class="checkbox-text">Вторник / Четверг (День 14:00 - 16:00)</span>
-                        </label>
-                        <label class="custom-checkbox">
-                            <input type="checkbox" name="schedule" value="thu_early_evening">
-                            <span class="checkmark"></span>
-                            <span class="checkbox-text">Четверг (Ранний вечер 17:00)</span>
-                        </label>
-                        <label class="custom-checkbox">
-                            <input type="checkbox" name="schedule" value="wed_fri_morning">
-                            <span class="checkmark"></span>
-                            <span class="checkbox-text">Среда / Пятница (Утро до 12:00)</span>
-                        </label>
-                        <label class="custom-checkbox">
-                            <input type="checkbox" name="schedule" value="any_time">
-                            <span class="checkmark"></span>
-                            <span class="checkbox-text">🕐 Подстроюсь под любое свободное окно</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="experience">Опыт в танцах</label>
-                    <div class="custom-select-wrapper">
-                        <div class="custom-select" id="experienceSelect">
-                            <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
-                            <div class="select-options">
-                                <div class="option" data-value="none">Абсолютный новичок (очень хочу попробовать)</div>
-                                <div class="option" data-value="basic">Знаю базу (танцую дома перед зеркалом)</div>
-                                <div class="option" data-value="middle">Есть опыт (учила связки, ходила на классы)</div>
-                                <div class="option" data-value="pro">Профи (уверенно танцую на каблуках/стрите)</div>
+                <!-- РЯД 5: БЮДЖЕТ (НА ВСЮ ШИРИНУ) -->
+                <div class="form-row-full-width">
+                    <div class="form-group">
+                        <label for="priceSelect">СКОЛЬКО ТЕБЕ КОМФОРТНО ВЫДЕЛЯТЬ НА ТАНЦЫ В МЕСЯЦ?</label>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select" id="priceSelect">
+                                <div class="select-trigger"><span>Выбери вариант</span><div class="arrow"></div></div>
+                                <div class="select-options">
+                                    <div class="option" data-value="one-time">Разово (до 600 рублей за занятие)</div>
+                                    <div class="option" data-value="up-to-3500">До 3 500 рублей (4 занятия)</div>
+                                    <div class="option" data-value="3500-5500">3 500 – 5 500 рублей (6-8 занятий)</div>
+                                    <div class="option" data-value="5500-7500">5 500 – 7 500 рублей (8-12 занятий)</div>
+                                </div>
                             </div>
+                            <input type="hidden" name="price" id="priceInput">
                         </div>
-                        <input type="hidden" name="experience" id="experienceInput">
                     </div>
                 </div>
 
