@@ -356,17 +356,18 @@
             background-clip: text;
             display: block;
         }
-        /* Контейнер сетки — строго 3 одинаковые колонки */
+        /* Контейнер сетки — строго 3 равные колонки */
         .dance-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 32px 24px;
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            align-items: stretch;
         }
 
-        /* Сама карточка направления */
+        /* Сама карточка — жестко держит высоту и структуру */
         .dance-card {
             background: #111214;
             border-radius: 12px;
@@ -382,28 +383,33 @@
             box-shadow: 0 12px 24px rgba(139, 111, 242, 0.2);
         }
 
-        /* Контейнер для видео внутри карточки */
+        /* Контейнер для видео — ТУТ ВСЯ МАГИЯ ВЫРАВНИВАНИЯ */
         .video-container {
             width: 100%;
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 3 / 4;
             position: relative;
             background: #000;
+            overflow: hidden;
         }
 
+        /* Заставляем любое видео заполнить рамку без искажений */
         .video-container video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
         }
 
-        /* Блок с текстом под видео */
+        /* Текстовый блок под видео */
         .card-content {
             padding: 24px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            justify-content: flex-start;
         }
 
+        /* Заголовки теперь ВСЕГДА на одном уровне */
         .card-content h3 {
             font-family: 'Unbounded', sans-serif;
             font-size: 20px;
@@ -411,8 +417,10 @@
             color: #ffffff;
             margin: 0 0 12px 0;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
+        /* Описание направления */
         .card-content p {
             font-size: 14px;
             line-height: 1.6;
@@ -760,6 +768,9 @@
         @media (max-width: 640px) {
             .dance-grid {
                 grid-template-columns: 1fr;
+            }
+            .video-container {
+                aspect-ratio: 4 / 5;
             }
             .survey-form { grid-template-columns: 1fr; gap: 20px; }
             .form-group.full-width, .btn-submit { grid-column: span 1; }
