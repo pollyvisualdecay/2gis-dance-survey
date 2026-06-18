@@ -1301,6 +1301,40 @@
         });
     });
     
+    // Интерактивное видео: Мобилки = autoplay, Десктоп = hover эффект
+    window.addEventListener('load', () => {
+        const danceCards = document.querySelectorAll('.dance-card');
+        
+        // Проверяем, есть ли у устройства тач-скрин (мобилка/планшет)
+        const isMobile = window.matchMedia("(pointer: coarse)").matches;
+
+        danceCards.forEach(card => {
+            const video = card.querySelector('video');
+            if (!video) return;
+
+            if (!isMobile) {
+                // --- ЛОГИКА ДЛЯ ДЕСКТОПОВ (Компьютеры) ---
+                // Ставим видео на паузу при загрузке, так как в HTML прописан autoplay для мобилок
+                video.pause();
+                
+                // Запускаем только при наведении мыши
+                card.addEventListener('mouseenter', () => {
+                    video.play().catch(err => console.log("Блокировка видео:", err));
+                });
+                
+                // Ставим на паузу, когда мышка уходит
+                card.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            } else {
+                // --- ЛОГИКА ДЛЯ МОБИЛОК ---
+                // Ничего не делаем, видео просто играет само по кругу (autoplay из HTML)
+                video.play().catch(err => console.log("Моб. автоплей заблокирован:", err));
+            }
+        });
+    });
+    
     // Интерактивный шлейф от движения мыши на Canvas
     const canvas = document.getElementById('trailCanvas');
     const ctx = canvas.getContext('2d');
