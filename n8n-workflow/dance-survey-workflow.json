@@ -37,6 +37,17 @@
       "typeVersion": 1.1,
       "position": [650, 300]
     },
+    },
+    {
+      "parameters": {
+        "jsCode": "// Преобразуем interested из массива в читаемый текст\nif (Array.isArray($input.item.json.interested)) {\n  const interestedMap = {\n    'female_choreo': 'FEMALE CHOREO',\n    'high_heels': 'HIGH HEELS',\n    'female_dancehall': 'FEMALE DANCEHALL',\n    'choreo': 'CHOREO',\n    'bachata': 'БАЧАТА',\n    'zumba': 'ZUMBA'\n  };\n  $input.item.json.interested_readable = $input.item.json.interested\n    .map(v => interestedMap[v] || v)\n    .join(', ');\n}\n\n// Преобразуем schedule из строки в читаемый формат\nconst scheduleMap = {\n  'mon_evening': 'Пн (Вечер после 17:00)',\n  'tue_thu_morning': 'Вт/Чт (Утро до 12:00)',\n  'tue_thu_afternoon': 'Вт/Чт (День 14:00-16:00)',\n  'thu_early_evening': 'Чт (Ранний вечер 17:00)',\n  'wed_fri_morning': 'Ср/Пт (Утро до 12:00)',\n  'any_time': 'Подстроюсь под любое окно'\n};\n\nif ($input.item.json.schedule) {\n  const schedules = typeof $input.item.json.schedule === 'string' \n    ? $input.item.json.schedule.split(', ').filter(Boolean)\n    : [$input.item.json.schedule];\n  $input.item.json.schedule_readable = schedules\n    .map(v => scheduleMap[v.trim()] || v)\n    .join(', ');\n}\n\nreturn $input.item;"
+      },
+      "id": "code-node",
+      "name": "Format Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [350, 300]
+    },
     {
       "parameters": {
         "operation": "append",
@@ -56,12 +67,12 @@
             "name": "={{ $json.name }}",
             "surname": "={{ $json.surname }}",
             "email": "={{ $json.email }}",
-            "interested": "={{ $json.interested.join(', ') }}",
+            "interested": "={{ $json.interested_readable || $json.interested }}",
             "other_direction": "={{ $json.other_direction }}",
             "price": "={{ $json.price }}",
             "duration": "={{ $json.duration }}",
             "frequency": "={{ $json.frequency }}",
-            "schedule": "={{ $json.schedule }}",
+            "schedule": "={{ $json.schedule_readable || $json.schedule }}",
             "experience": "={{ $json.experience }}",
             "timestamp": "={{ $json.timestamp }}"
           },
@@ -79,7 +90,7 @@
     {
       "parameters": {
         "chatId": "YOUR_TELEGRAM_CHAT_ID",
-        "text": "🎉 Новый ответ на опрос танцев!\n\n👤 {{ $json.name }} {{ $json.surname }}\n📧 {{ $json.email }}\n💃 Интересы: {{ $json.interested.join(', ') }}\n💰 Цена: {{ $json.price }}\n⏱️ Длительность: {{ $json.duration }}\n📅 Частота: {{ $json.frequency }}\n🕐 Время: {{ $json.schedule }}\n📊 Опыт: {{ $json.experience }}",
+        "text": "🎉 Новый ответ на опрос танцев!\n\n👤 {{ $json.name }} {{ $json.surname }}\n📧 {{ $json.email }}\n💃 Интересы: {{ $json.interested_readable || $json.interested }}\n💰 Цена: {{ $json.price }}\n⏱️ Длительность: {{ $json.duration }}\n📅 Частота: {{ $json.frequency }}\n🕐 Время: {{ $json.schedule_readable || $json.schedule }}\n📊 Опыт: {{ $json.experience }}",
         "additionalFields": {}
       },
       "id": "telegram-node",
@@ -91,6 +102,17 @@
   ],
   "connections": {
     "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Data": {
       "main": [
         [
           {
