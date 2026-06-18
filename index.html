@@ -814,9 +814,9 @@
     <section class="hero">
         <div class="hero-bg">
             <div class="hero-video">
-                        <video class="hero-video-element" muted loop autoplay playsinline preload="metadata" poster="videos/under_new.png">
-                            <source src="videos/under_new.mp4" type="video/mp4">
-                        </video>
+                            <video class="hero-video-element" muted autoplay loop playsinline preload="auto" poster="videos/under_new.png">
+                                <source src="videos/under_new.mp4" type="video/mp4">
+                            </video>
                 <div class="hero-video-overlay"></div>
             </div>
         </div>
@@ -871,7 +871,7 @@
                 <!-- FEMALE DANCEHALL -->
                 <div class="dance-card">
                     <div class="video-container">
-                        <video src="videos/female-dancehall_new.mp4" poster="videos/female-dancehall.png" muted playsinline preload="metadata"></video>
+                        <video src="videos/female-dancehall_new.mp4" poster="videos/female-dancehall.png" muted autoplay playsinline preload="auto"></video>
                     </div>
                     <div class="card-content">
                         <h3>FEMALE DANCEHALL</h3>
@@ -882,7 +882,7 @@
                 <!-- BACHATA -->
                 <div class="dance-card">
                     <div class="video-container">
-                        <video src="videos/Bachata_New.mp4" poster="videos/bachata.png" muted playsinline preload="metadata"></video>
+                        <video src="videos/Bachata_New.mp4" poster="videos/bachata.png" muted autoplay playsinline preload="auto"></video>
                     </div>
                     <div class="card-content">
                         <h3>BACHATA</h3>
@@ -893,7 +893,7 @@
                 <!-- CHOREO -->
                 <div class="dance-card">
                     <div class="video-container">
-                        <video src="videos/choreo_new1.mp4" poster="videos/choreo-backup.png" muted playsinline preload="metadata"></video>
+                        <video src="videos/choreo_new1.mp4" poster="videos/choreo-backup.png" muted autoplay playsinline preload="auto"></video>
                     </div>
                     <div class="card-content">
                         <h3>CHOREO</h3>
@@ -904,7 +904,7 @@
                 <!-- ZUMBA -->
                 <div class="dance-card">
                     <div class="video-container">
-                        <video src="videos/zumba_new.mp4" poster="videos/zumba.png" muted playsinline preload="metadata"></video>
+                        <video src="videos/zumba_new.mp4" poster="videos/zumba.png" muted autoplay playsinline preload="auto"></video>
                     </div>
                     <div class="card-content">
                         <h3>ZUMBA</h3>
@@ -915,7 +915,7 @@
                 <!-- HIGH HEELS -->
                 <div class="dance-card">
                     <div class="video-container">
-                        <video src="videos/high-heels_new.mp4" poster="videos/high-heels.png" muted playsinline preload="metadata"></video>
+                        <video src="videos/high-heels_new.mp4" poster="videos/high-heels.png" muted autoplay playsinline preload="auto"></video>
                     </div>
                     <div class="card-content">
                         <h3>HIGH HEELS</h3>
@@ -926,7 +926,7 @@
                 <!-- FEMALE CHOREO -->
                 <div class="dance-card">
                     <div class="video-container">
-                        <video src="videos/female-choreo_new.mp4" poster="videos/female-choreo.png" muted playsinline preload="metadata"></video>
+                        <video src="videos/female-choreo_new.mp4" poster="videos/female-choreo.png" muted autoplay playsinline preload="auto"></video>
                     </div>
                     <div class="card-content">
                         <h3>FEMALE CHOREO</h3>
@@ -1180,15 +1180,10 @@
     }
     
     // Поведение видео при наведении мыши (только для десктопа)
+    // На мобильных autoplay работает через атрибут в HTML
     document.querySelectorAll('.dance-card').forEach(card => {
         const video = card.querySelector('video');
         if(video) {
-            // На мобильных включаем autoplay
-            if (window.innerWidth <= 968) {
-                video.setAttribute('autoplay', '');
-                video.setAttribute('loop', '');
-            }
-            
             card.addEventListener('mouseenter', () => {
                 if (window.innerWidth > 968) {
                     video.play().catch(err => console.log(err));
