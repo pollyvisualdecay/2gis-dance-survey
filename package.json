@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "npx http-server -p 8000 -c-1",
-    "serve": "python -m http.server 8000"
+    "serve": "python -m http.server 8000",
+    "deploy-workflow": "node deploy-workflow.js"
   },
   "keywords": [
     "survey",
