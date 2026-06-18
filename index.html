@@ -172,12 +172,102 @@
             gap: 16px;
         }
         
-        /* Контейнер для трех карточек */
-        .why-dance-features {
+        /* Основной контейнер секции — теперь вертикальный, чтобы заголовок был над карточками */
+        .why-dance-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Центрированный заголовок в одну строку */
+        .why-dance-title-center h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 0;
+            text-align: center;
+            white-space: nowrap;
+            letter-spacing: -1px;
+            font-family: 'Unbounded', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #0073e6, #8b6ff2, #ed7bbb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Линейный ряд для 3-х карточек */
+        .why-dance-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            margin-top: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+        
+        .trend-card {
+            background: #0d0d0d;
+            border: 1px solid #262626;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        
+        .card-num {
+            font-size: 14px;
+            font-family: monospace;
+            color: #666666;
+            margin-bottom: 24px;
+        }
+        
+        .trend-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            transition: color 0.3s ease;
+            font-family: 'Unbounded', sans-serif;
+        }
+        
+        .trend-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #8c8c8c;
+            margin: 0;
+            transition: color 0.3s ease;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 300;
+        }
+        
+        .trend-card:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        .trend-card:hover h3 {
+            color: #000000;
+        }
+        
+        .trend-card:hover p {
+            color: #1a1a1a;
+        }
+        
+        .trend-card:hover .card-num {
+            color: #999999;
+        }
+        
+        .directions {
+            padding: 60px 0;
         }
         
         /* Стиль самой карточки */
@@ -269,7 +359,8 @@
         .directions-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            grid-auto-rows: 400px;
+            gap: 24px;
             width: 100%;
         }
         .direction-card {
@@ -281,6 +372,13 @@
             flex-direction: column;
             transition: transform 0.3s, border-color 0.3s;
         }
+        .direction-card.tall {
+            grid-row: span 2;
+            grid-auto-rows: 400px;
+        }
+        .direction-card.wide {
+            grid-column: span 2;
+        }
         .direction-card:hover {
             transform: translateY(-5px);
             border-color: #8b6ff2;
@@ -289,49 +387,48 @@
         .direction-card .video-wrapper {
             position: relative;
             width: 100%;
-            aspect-ratio: 3 / 4;
+            height: 100%;
             background-color: #000;
             overflow: hidden;
             flex-shrink: 0;
+        }
+        .direction-card.tall .video-wrapper {
+            height: 100%;
         }
         .card-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .video-play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(139, 111, 242, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .direction-card:hover .video-play-btn {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-        }
-        .directions {
-            padding: 60px 0;
-        }
         .card-content {
-            padding: 32px 28px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 8px;
             flex-grow: 1;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
-        .card-title { font-family: 'Unbounded', sans-serif; font-size: 22px; letter-spacing: 0.04em; font-weight: 600; margin: 0; }
-        .card-desc { color: #94a3b8; font-size: 11px; line-height: 1.65; margin: 0; font-family: 'Unbounded', sans-serif; font-weight: 300; }
+        .card-title { 
+            font-family: 'Unbounded', sans-serif; 
+            font-size: 18px; 
+            letter-spacing: 0.04em; 
+            font-weight: 600; 
+            margin: 0;
+            color: #ffffff;
+        }
+        .card-desc { 
+            color: rgba(255, 255, 255, 0.8); 
+            font-size: 12px; 
+            line-height: 1.5; 
+            margin: 0; 
+            font-family: 'Unbounded', sans-serif; 
+            font-weight: 300; 
+            display: none;
+        }
 
         /* ДВУХКОЛОНОЧНАЯ ДЕСКТОПНАЯ ФОРМА */
         .survey {
@@ -632,8 +729,20 @@
         }
 
         /* АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ */
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
             .hero-title { font-size: 28px; }
+            .why-dance-section {
+                flex-direction: column;
+                gap: 32px;
+                padding: 60px 20px;
+            }
+            .why-dance-title-center h2 {
+                font-size: 36px;
+                white-space: normal;
+            }
+            .why-dance-row {
+                grid-template-columns: 1fr;
+            }
             .section-header-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
@@ -644,23 +753,44 @@
             .section-title-big {
                 font-size: 32px;
             }
-            .section-text-unbounded,
-            .section-text-inter {
-                font-size: 15px;
-                max-width: 100%;
-                hyphens: auto;
-                -webkit-hyphens: auto;
-            }
             .directions-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+                grid-auto-rows: auto;
             }
-            .direction-card.wide-card { grid-column: span 1; }
+            .direction-card.tall {
+                grid-row: span 1;
+            }
+            .direction-card.wide {
+                grid-column: span 1;
+            }
+            .direction-card .video-wrapper {
+                height: 300px;
+            }
+            .direction-card.tall .video-wrapper {
+                height: 300px;
+            }
+            /* На мобильных включаем autoplay для всех видео */
+            .card-video {
+                animation: mobileAutoplay 0s forwards;
+            }
+            @keyframes mobileAutoplay {
+                to { animation-timing-function: steps(1); }
+            }
             .survey-form { grid-template-columns: 1fr; gap: 20px; }
             .form-group.full-width, .btn-submit { grid-column: span 1; }
             .checkbox-grid { grid-template-columns: 1fr; }
             .checkbox-grid-two-columns {
                 grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 968px) {
+            .card-video {
+                animation: none;
+            }
+            .direction-card .video-wrapper .card-video {
+                display: block;
             }
         }
             .survey-form { grid-template-columns: 1fr; gap: 20px; }
@@ -708,52 +838,41 @@
         </div>
     </section>
 
-    <section class="directions">
-        <div class="container">
-            <div class="section-header-grid">
-                <div class="header-column-left">
-                    <h2 class="section-title-big">
-                        Почему<br><span class="title-accent">танцы?</span>
-                    </h2>
-                </div>
-                <div class="header-column-right">
-                    <div class="why-dance-features">
-                        <!-- Карточка 1 -->
-                        <div class="feature-card">
-                            <div class="feature-icon">💪</div>
-                            <h3 class="feature-title">Прокачка тела</h3>
-                            <p class="feature-text">В дополнение к нашим Mobility, Stretching и Body sculpt. Танцы — это мощное кардио и баланс.</p>
-                        </div>
+    <section class="why-dance-section">
+        <!-- Заголовок теперь строго сверху -->
+        <div class="why-dance-title-center">
+            <h2>Почему <span class="gradient-text">танцы?</span></h2>
+        </div>
 
-                        <!-- Карточка 2 -->
-                        <div class="feature-card">
-                            <div class="feature-icon">🧠</div>
-                            <h3 class="feature-title">Перезагрузка головы</h3>
-                            <p class="feature-text">Лучший способ полностью отключиться от рабочих задач, разгрузить мозг и снять стресс после созвонов.</p>
-                        </div>
-
-                        <!-- Карточка 3 -->
-                        <div class="feature-card">
-                            <div class="feature-icon">⚡</div>
-                            <h3 class="feature-title">Чистый драйв</h3>
-                            <p class="feature-text">Возможность выплеснуть эмоции, зарядиться бешеной энергией и поймать кайфовый темп для жизни.</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- Контейнер для трех карточек в один ряд -->
+        <div class="why-dance-row">
+            <div class="trend-card">
+                <span class="card-num">01</span>
+                <h3>Прокачка тела</h3>
+                <p>В дополнение к нашим Mobility, Stretching и Body sculpt. Танцы — это мощное кардио и баланс.</p>
             </div>
+
+            <div class="trend-card">
+                <span class="card-num">02</span>
+                <h3>Перезагрузка головы</h3>
+                <p>Лучший способ полностью отключиться от рабочих задач, разгрузить мозг и снять стресс после созвонов.</p>
+            </div>
+
+            <div class="trend-card">
+                <span class="card-num">03</span>
+                <h3>Чистый драйв</h3>
+                <p>Возможность выплеснуть эмоции, зарядиться бешеной энергией и поймать кайфовый темп для жизни.</p>
+            </div>
+        </div>
+    </section>
             
             <div class="directions-grid">
-                <!-- FEMALE DANCEHALL -->
-                <div class="direction-card" data-direction="female-dancehall">
+                <!-- FEMALE DANCEHALL - tall -->
+                <div class="direction-card tall" data-direction="female-dancehall">
                     <div class="video-wrapper">
-                        <video class="card-video" muted loop autoplay playsinline preload="metadata" poster="videos/female-dancehall.png">
+                        <video class="card-video" muted playsinline preload="metadata" poster="videos/female-dancehall.png">
                             <source src="videos/female-dancehall_new.mp4" type="video/mp4">
                         </video>
-                        <div class="video-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">FEMALE DANCEHALL</h3>
@@ -763,14 +882,9 @@
 
                 <div class="direction-card" data-direction="bachata">
                     <div class="video-wrapper">
-                        <video class="card-video" muted loop autoplay playsinline preload="metadata" poster="videos/bachata.png">
+                        <video class="card-video" muted playsinline preload="metadata" poster="videos/bachata.png">
                             <source src="videos/Bachata_New.mp4" type="video/mp4">
                         </video>
-                        <div class="video-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">BACHATA</h3>
@@ -780,14 +894,9 @@
 
                 <div class="direction-card" data-direction="choreo">
                     <div class="video-wrapper">
-                        <video class="card-video" muted loop autoplay playsinline preload="metadata" poster="videos/choreo-backup.png">
+                        <video class="card-video" muted playsinline preload="metadata" poster="videos/choreo-backup.png">
                             <source src="videos/choreo_new1.mp4" type="video/mp4">
                         </video>
-                        <div class="video-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">CHOREO</h3>
@@ -797,14 +906,9 @@
 
                 <div class="direction-card" data-direction="zumba">
                     <div class="video-wrapper">
-                        <video class="card-video" muted loop autoplay playsinline preload="metadata" poster="videos/zumba.png">
+                        <video class="card-video" muted playsinline preload="metadata" poster="videos/zumba.png">
                             <source src="videos/zumba_new.mp4" type="video/mp4">
                         </video>
-                        <div class="video-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">ZUMBA</h3>
@@ -814,14 +918,9 @@
 
                 <div class="direction-card" data-direction="high-heels">
                     <div class="video-wrapper">
-                        <video class="card-video" muted loop autoplay playsinline preload="metadata" poster="videos/high-heels.png">
+                        <video class="card-video" muted playsinline preload="metadata" poster="videos/high-heels.png">
                             <source src="videos/high-heels_new.mp4" type="video/mp4">
                         </video>
-                        <div class="video-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">HIGH HEELS</h3>
@@ -831,14 +930,9 @@
 
                 <div class="direction-card" data-direction="female-choreo">
                     <div class="video-wrapper">
-                        <video class="card-video" muted loop autoplay playsinline preload="metadata" poster="videos/female-choreo.png">
+                        <video class="card-video" muted playsinline preload="metadata" poster="videos/female-choreo.png">
                             <source src="videos/female-choreo_new.mp4" type="video/mp4">
                         </video>
-                        <div class="video-play-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">FEMALE CHOREO</h3>
@@ -1091,12 +1185,27 @@
         });
     }
     
-    // Поведение видео при наведении мыши (автоплей при наведении, пауза с сохранением позиции когда убрали)
+    // Поведение видео при наведении мыши (только для десктопа)
     document.querySelectorAll('.direction-card').forEach(card => {
         const video = card.querySelector('.card-video');
         if(video) {
-            card.addEventListener('mouseenter', () => video.play());
-            card.addEventListener('mouseleave', () => video.pause());
+            // На мобильных включаем autoplay
+            if (window.innerWidth <= 968) {
+                video.setAttribute('autoplay', '');
+                video.setAttribute('loop', '');
+            }
+            
+            card.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 968) {
+                    video.play().catch(err => console.log(err));
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 968) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            });
         }
     });
 
