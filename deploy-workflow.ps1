@@ -1,41 +1,15 @@
-# deploy-workflow.ps1 - Автоматическое обновление n8n workflow
+# deploy-workflow.ps1 - Обновление n8n workflow через Python скрипт
 
-$N8N_URL = "https://n8n.2gis.io"
-$N8N_API_KEY = $env:N8N_API_KEY
-$N8N_WORKFLOW_ID = $env:N8N_WORKFLOW_ID
+$pythonScript = Join-Path $PSScriptRoot "..\n8n-manager\n8n-manager\scripts\update_workflow.py"
+$workflowId = "50eaQSaKlvJ8IxFp"
+$workflowJson = Join-Path $PSScriptRoot "n8n-workflow\dance-survey-workflow.json"
 
-$workflowPath = Join-Path $PSScriptRoot "n8n-workflow\dance-survey-workflow.json"
+Write-Host "Updating n8n workflow..." -ForegroundColor Cyan
+python $pythonScript $workflowId $workflowJson
 
-if (-not $N8N_API_KEY) {
-    Write-Host "❌ Ошибка: N8N_API_KEY не установлен" -ForegroundColor Red
-    exit 1
-}
-
-if (-not $N8N_WORKFLOW_ID) {
-    Write-Host "❌ Ошибка: N8N_WORKFLOW_ID не установлен" -ForegroundColor Red
-    exit 1
-}
-
-try {
-    $workflowData = Get-Content $workflowPath -Raw
-    
-    Write-Host "📡 Отправка workflow в n8n..." -ForegroundColor Cyan
-    
-    $headers = @{
-        "Content-Type" = "application/json"
-        "X-N8N-API-KEY" = $N8N_API_KEY
-    }
-    
-    $response = Invoke-RestMethod -Uri "$N8N_URL/rest/workflows/$N8N_WORKFLOW_ID" `
-        -Method Put `
-        -Headers $headers `
-        -Body $workflowData
-    
-    Write-Host "✅ Workflow успешно обновлён!" -ForegroundColor Green
-    Write-Host "   ID: $($response.id)"
-    Write-Host "   Имя: $($response.name)"
-    
-} catch {
-    Write-Host "❌ Ошибка при обновлении workflow: $_" -ForegroundColor Red
+if ($LASTEXITCODE -eq 0) {
+    Write-Host "SUCCESS: Workflow updated!" -ForegroundColor Green
+} else {
+    Write-Host "ERROR: Failed to update workflow" -ForegroundColor Red
     exit 1
 }
