@@ -39,16 +39,6 @@
     },
     {
       "parameters": {
-        "jsCode": "// Функция для экранирования значений Google Sheets\nfunction escapeGoogleSheetValue(value) {\n  if (typeof value !== 'string') return value;\n  const firstChar = value.charAt(0);\n  if (firstChar === '=' || firstChar === '+' || firstChar === '-' || firstChar === '@') {\n    return \"'\" + value;\n  }\n  return value;\n}\n\n// Преобразуем directions из массива в читаемый текст\nif (Array.isArray(items[0].json.directions)) {\n  items[0].json.directions_readable = escapeGoogleSheetValue(\n    items[0].json.directions.join(', ')\n  );\n}\n\n// Преобразуем schedule — новые русские значения из формы\nconst scheduleMap = {\n  'Будни: Вечер (18:30 - 20:15)': 'Будни (Пн-Пт): Вечер 18:30-20:15',\n  'Будни: Поздний вечер (20:15 - 22:00)': 'Будни (Пн-Пт): Поздний вечер 20:15-22:00',\n  'Выходные: Утро (09:00 - 13:00)': 'Выходные (Сб-Вс): Утро 09:00-13:00',\n  'Выходные: День (13:00 - 17:00)': 'Выходные (Сб-Вс): День 13:00-17:00',\n  'Выходные: Вечер (17:00 - 21:00)': 'Выходные (Сб-Вс): Вечер 17:00-21:00',\n  'Любой день и время': 'Готова в любое время'\n};\n\nif (items[0].json.schedule) {\n  const schedules = typeof items[0].json.schedule === 'string' \n    ? items[0].json.schedule.split(', ').filter(Boolean)\n    : [items[0].json.schedule];\n  items[0].json.schedule_readable = escapeGoogleSheetValue(\n    schedules.map(v => scheduleMap[v.trim()] || v).join(', ')\n  );\n}\n\nreturn items;"
-      },
-      "id": "code-node",
-      "name": "Format Data",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [350, 300]
-    },
-    {
-      "parameters": {
         "operation": "append",
         "documentId": {
           "__rl": true,
@@ -65,14 +55,14 @@
           "value": {
             "name": "={{ $json.name }}",
             "email": "={{ $json.email }}",
-            "directions": "={{ $json.directions_readable || $json.directions }}",
+            "directions": "={{ $json.directions.join(', ') }}",
             "other_direction": "={{ $json.other_direction }}",
             "price": "={{ $json.price }}",
             "duration": "={{ $json.duration }}",
             "frequency": "={{ $json.frequency }}",
-            "schedule": "={{ $json.schedule_readable || $json.schedule }}",
+            "schedule": "={{ $json.schedule }}",
             "experience": "={{ $json.experience }}",
-            "timestamp": "={{ $json.timestamp }}"
+            "timestamp": "={{ $now }}"
           },
           "matchingColumns": [],
           "schema": []
@@ -88,17 +78,6 @@
   ],
   "connections": {
     "Webhook": {
-      "main": [
-        [
-          {
-            "node": "Format Data",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Format Data": {
       "main": [
         [
           {
