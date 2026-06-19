@@ -39,22 +39,16 @@
     },
     {
       "parameters": {
-        "smtpHost": "smtp.2gis.ru",
-        "smtpPort": 587,
-        "secure": false,
-        "auth": {
-          "user": "YOUR_EMAIL@2gis.ru",
-          "pass": "YOUR_PASSWORD"
-        },
-        "from": "YOUR_EMAIL@2gis.ru",
-        "to": "YOUR_WORK_EMAIL@2gis.ru",
+        "resource": "mail",
+        "operation": "send",
+        "to": "p.vodyankina@2gis.ru",
         "subject": "={{ '[Новая анкета] Опрос по танцам от ' + $json.name }}",
-        "text": "={{ '=== НОВАЯ АНКЕТА: ОПРОС ПО ТАНЦАМ ===\\n\\n👤 ИМЯ: ' + $json.name + '\\n📧 EMAIL: ' + $json.email + '\\n\\n💃 ИНТЕРЕСУЮЩИЕСЯ НАПРАВЛЕНИЯ:\\n' + $json.directions + '\\n\\n📝 ДРУГОЕ НАПРАВЛЕНИЕ:\\n' + ($json.other_direction || '-') + '\\n\\n💰 КОМФОРТНАЯ СТОИМОСТЬ:\\n' + $json.price + '\\n\\n⏱️ ДЛИТЕЛЬНОСТЬ ЗАНЯТИЯ:\\n' + $json.duration + '\\n\\n📅 ЧАСТОТА В НЕДЕЛЮ:\\n' + $json.frequency + '\\n\\n🕐 УДОБНОЕ ВРЕМЯ:\\n' + $json.schedule + '\\n\\n📊 ОПЫТ В ТАНЦАХ:\\n' + $json.experience + '\\n\\n📅 Дата отправки: ' + $now }}",
+        "message": "={{ '<h2>=== НОВАЯ АНКЕТА: ОПРОС ПО ТАНЦАМ ===</h2><p><strong>👤 ИМЯ:</strong> ' + $json.name + '</p><p><strong>📧 EMAIL:</strong> ' + $json.email + '</p><h3>💃 ИНТЕРЕСУЮЩИЕСЯ НАПРАВЛЕНИЯ:</h3><p>' + $json.directions + '</p><h3>📝 ДРУГОЕ НАПРАВЛЕНИЕ:</h3><p>' + ($json.other_direction || '-') + '</p><h3>💰 КОМФОРТНАЯ СТОИМОСТЬ:</h3><p>' + $json.price + '</p><h3>⏱️ ДЛИТЕЛЬНОСТЬ ЗАНЯТИЯ:</h3><p>' + $json.duration + '</p><h3>📅 ЧАСТОТА В НЕДЕЛЮ:</h3><p>' + $json.frequency + '</p><h3>🕐 УДОБНОЕ ВРЕМЯ:</h3><p>' + $json.schedule + '</p><h3>📊 ОПЫТ В ТАНЦАХ:</h3><p>' + $json.experience + '</p><hr><p><em>📅 Дата отправки: ' + $now + '</em></p>' }}",
         "options": {}
       },
       "id": "email-node",
-      "name": "Send Email",
-      "type": "n8n-nodes-base.smtp",
+      "name": "Send Outlook Email",
+      "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 1,
       "position": [550, 300]
     }
