@@ -375,6 +375,7 @@
             max-width: 1200px;
             margin: 0 auto;
             align-items: stretch;
+            padding: 0 20px;
         }
 
         /* Сама карточка — жестко держит высоту и структуру */
@@ -803,6 +804,8 @@
             .dance-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
+                max-width: 600px;
+                padding: 0 16px;
             }
             .survey-form { grid-template-columns: 1fr; gap: 20px; }
             .form-group.full-width, .btn-submit { grid-column: span 1; }
@@ -815,6 +818,13 @@
         @media (max-width: 640px) {
             .dance-grid {
                 grid-template-columns: 1fr;
+                max-width: 360px;
+                margin: 0 auto;
+                padding: 0 16px;
+            }
+            .dance-card {
+                margin: 0 auto;
+                width: 100%;
             }
             .video-container {
                 aspect-ratio: 4 / 5;
