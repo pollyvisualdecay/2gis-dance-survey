@@ -1255,29 +1255,36 @@
             experience: document.querySelector('#experienceSelect .select-trigger') ? document.querySelector('#experienceSelect .select-trigger').textContent.trim() : ''
         };
 
-        // https://n8n.2gis.io/webhook/dance-survey
-        const webhookUrl = 'https://n8n.2gis.io/webhook/dance-survey'; 
+        // Внутренний вебхук n8n (корпоративная сеть)
+        const webhookUrl = 'https://n8n.2gis.io/webhook/dance-survey';
 
         // Отправляем данные методом POST в формате JSON
         fetch(webhookUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         })
         .then(response => {
             if (response.ok) {
-                // Если всё улетело успешно, показываем наше красивое окно "Готово!"
-                document.getElementById('successMessage').style.display = 'flex';
+                // n8n Respond to Webhook возвращает сообщение об успехе
+                return response.json().then(text => {
+                    document.getElementById('successMessage').style.display = 'flex';
+                });
             } else {
-                alert('Что-то пошло не так при отправке. Попробуй еще раз!');
+                return response.text().then(err => {
+                    throw new Error(err || 'Ошибка сервера');
+                });
             }
         })
+        .then(() => {
+            // Успешная отправка - показываем окно
+            document.getElementById('successMessage').style.display = 'flex';
+        })
         .catch(error => {
-            console.error('Ошибка:', error);
-            alert('Ошибка соединения с сервером.');
+            console.error('Ошибка отправки:', error);
+            alert('Не удалось отправить форму. Проверьте соединение и попробуйте снова.');
         });
     });
 
