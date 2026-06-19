@@ -39,33 +39,25 @@
     },
     {
       "parameters": {
-        "operation": "append",
-        "resource": "sheet",
-        "path": "/dance-survey-answers.xlsx",
-        "sheetName": "Ответы",
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "timestamp": "={{ $now }}",
-            "name": "={{ $json.name }}",
-            "email": "={{ $json.email }}",
-            "directions": "={{ $json.directions }}",
-            "other_direction": "={{ $json.other_direction }}",
-            "price": "={{ $json.price }}",
-            "duration": "={{ $json.duration }}",
-            "frequency": "={{ $json.frequency }}",
-            "schedule": "={{ $json.schedule }}",
-            "experience": "={{ $json.experience }}"
-          },
-          "matchingColumns": [],
-          "schema": []
+        "method": "PUT",
+        "url": "https://drive.2gis.ru/remote.php/dav/files/p.vodyankina9Anfi-XH3y6-wFCr6-AjnAX-tyFMn/dance-survey-answers.csv",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Basic cHYub2R5YW5raW5hOTlubmYtWEgzeTYtd0ZjcjYtSm5hWFQtdHlGTW46cGFzc3dvcmQtYXBw"
+            }
+          ]
         },
+        "sendBody": true,
+        "bodyContent": "={{ 'timestamp,name,email,directions,other_direction,price,duration,frequency,schedule,experience\\n' + $now + ',' + $json.name + ',' + $json.email + ',' + $json.directions + ',' + ($json.other_direction || '-') + ',' + $json.price + ',' + $json.duration + ',' + $json.frequency + ',' + $json.schedule + ',' + $json.experience }}",
         "options": {}
       },
-      "id": "nextcloud-node",
-      "name": "Nextcloud Save",
-      "type": "n8n-nodes-base.nextcloud",
-      "typeVersion": 2,
+      "id": "webdav-node",
+      "name": "2GIS Drive Save",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
       "position": [550, 300]
     }
   ],
