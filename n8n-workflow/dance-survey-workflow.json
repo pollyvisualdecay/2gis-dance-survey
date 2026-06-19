@@ -39,45 +39,24 @@
     },
     {
       "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
+        "smtpHost": "smtp.2gis.ru",
+        "smtpPort": 587,
+        "secure": false,
+        "auth": {
+          "user": "YOUR_EMAIL@2gis.ru",
+          "pass": "YOUR_PASSWORD"
         },
-        "sheetName": {
-          "__rl": true,
-          "mode": "list",
-          "value": "Ответы на опрос"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "name": "={{ $json.name }}",
-            "email": "={{ $json.email }}",
-            "directions": "={{ $json.directions.join(', ') }}",
-            "other_direction": "={{ $json.other_direction }}",
-            "price": "={{ $json.price }}",
-            "duration": "={{ $json.duration }}",
-            "frequency": "={{ $json.frequency }}",
-            "schedule": "={{ $json.schedule }}",
-            "experience": "={{ $json.experience }}",
-            "timestamp": "={{ $now }}"
-          },
-          "matchingColumns": [],
-          "schema": []
-        },
-        "options": {
-          "retryOnFail": true,
-          "maxRetries": 5,
-          "waitBetweenRetries": 1000
-        }
+        "from": "YOUR_EMAIL@2gis.ru",
+        "to": "YOUR_WORK_EMAIL@2gis.ru",
+        "subject": "={{ '[Новая анкета] Опрос по танцам от ' + $json.name }}",
+        "text": "={{ '=== НОВАЯ АНКЕТА: ОПРОС ПО ТАНЦАМ ===\\n\\n👤 ИМЯ: ' + $json.name + '\\n📧 EMAIL: ' + $json.email + '\\n\\n💃 ИНТЕРЕСУЮЩИЕСЯ НАПРАВЛЕНИЯ:\\n' + $json.directions + '\\n\\n📝 ДРУГОЕ НАПРАВЛЕНИЕ:\\n' + ($json.other_direction || '-') + '\\n\\n💰 КОМФОРТНАЯ СТОИМОСТЬ:\\n' + $json.price + '\\n\\n⏱️ ДЛИТЕЛЬНОСТЬ ЗАНЯТИЯ:\\n' + $json.duration + '\\n\\n📅 ЧАСТОТА В НЕДЕЛЮ:\\n' + $json.frequency + '\\n\\n🕐 УДОБНОЕ ВРЕМЯ:\\n' + $json.schedule + '\\n\\n📊 ОПЫТ В ТАНЦАХ:\\n' + $json.experience + '\\n\\n📅 Дата отправки: ' + $now }}",
+        "options": {}
       },
-      "id": "google-sheets-node",
-      "name": "Add to Google Sheets",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.5,
-      "position": [450, 300]
+      "id": "email-node",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.smtp",
+      "typeVersion": 1,
+      "position": [550, 300]
     }
   ],
   "connections": {
@@ -96,7 +75,7 @@
       "main": [
         [
           {
-            "node": "Add to Google Sheets",
+            "node": "Send Email",
             "type": "main",
             "index": 0
           }
